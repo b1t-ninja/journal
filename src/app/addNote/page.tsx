@@ -1,4 +1,6 @@
+"use client"
 import Note from "@/models/Note/Note";
+import {motion} from "framer-motion"
 
 const AddNotePage = (note: Note) => {
     return (
@@ -13,7 +15,11 @@ const AddNotePage = (note: Note) => {
                         className="block min-h-96 mt-2 w-full text-xl p-2 text-gray-900 text-m border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                 </div>
 
-                <button className={"p-4 bg-purple-500 mt-2 rounded"} role={"submit"}>Add Note</button>
+                <motion.button
+                    whileHover={{scale: 1.2, textDecoration: "underline"}}
+                    whileTap={{scale: 0.9}}
+                    className={"p-4 bg-purple-500 mt-2 rounded"} role={"submit"}>Add Note
+                </motion.button>
             </form>
         </>
     )

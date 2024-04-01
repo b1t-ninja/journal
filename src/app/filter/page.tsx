@@ -17,9 +17,15 @@ const FilterPage = () => {
                     className={"p-2 bg-gray-500 rounded"}>Title
                 </motion.p>
                 <motion.p
+                    whileHover={{scale: 1.2}}
+                    whileTap={{scale: 0.9}}
+                    onTap={sayHi}
                     className={"p-2 bg-gray-500 rounded"}>Content
                 </motion.p>
                 <motion.p
+                    whileHover={{scale: 1.2}}
+                    whileTap={{scale: 0.9}}
+                    onTap={sayHi}
                     className={"p-2 bg-gray-500 rounded"}>Date
                 </motion.p>
             </div>
