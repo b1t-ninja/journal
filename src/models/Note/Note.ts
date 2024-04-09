@@ -27,3 +27,11 @@ const toggleBookmarked = (note: Note) => {
 }
 
 export {createNewNote, getCreatedDate, getCreatedTime, toggleBookmarked}
+
+export const notes = [
+    createNewNote("be better tomorrow", "y I do like beatrice"),
+    createNewNote("can't i just be nice", "xylophones are kinda nice I have got to say"),
+    createNewNote("what a day it has been", "why would she not like ma back"),
+    createNewNote("a beautiful day", "zuper duper annooyiiing"),
+    createNewNote("gotta go", "a flower might be all i need"),
+]

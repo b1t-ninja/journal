@@ -1,34 +1,33 @@
 "use client"
+import NotesView from "@/components/NotesView/NotesView";
+import Note, {notes} from "@/models/Note/Note";
+import FilterButton from "@/components/FilterButton/FilterButton";
 import {useState} from "react";
-import {motion} from "framer-motion"
 
+/* TODO, make component cleaner take sortedentries in its own component so
+*   this page can be pure client component */
 const FilterPage = () => {
-    let [isSelected, setIsSelected] = useState(false)
-    const sayHi = () => {
-        console.log("Hello ! I was tapped !")
+    const titleComparator = (note1: Note, note2: Note): number => note1.title.localeCompare(note2.title)
+    const contentComparator = (note1: Note, note2: Note): number => note1.content.localeCompare(note2.content)
+    const dateComparator = (note1: Note, note2: Note): number => note1.created.getTime() - note2.created.getTime()
+    let [sortedEntries, setSortedEntries] = useState<Note[]>(notes.sort(contentComparator))
+
+    const handleClick = (comparator: (note1: Note, note2: Note) => number) => {
+        return () => {
+            console.log(notes.sort(comparator))
+            setSortedEntries([...notes].sort(comparator))
+        }
     }
+
     return (
         <>
             <div className={"flex gap-4 align-middle justify-center"}>
-                <motion.p
-                    whileHover={{scale: 1.2}}
-                    whileTap={{scale: 0.9}}
-                    onTap={sayHi}
-                    className={"p-2 bg-gray-500 rounded"}>Title
-                </motion.p>
-                <motion.p
-                    whileHover={{scale: 1.2}}
-                    whileTap={{scale: 0.9}}
-                    onTap={sayHi}
-                    className={"p-2 bg-gray-500 rounded"}>Content
-                </motion.p>
-                <motion.p
-                    whileHover={{scale: 1.2}}
-                    whileTap={{scale: 0.9}}
-                    onTap={sayHi}
-                    className={"p-2 bg-gray-500 rounded"}>Date
-                </motion.p>
+                <FilterButton text={"Title"} onClickMethod={handleClick(titleComparator)}/>
+                <FilterButton text={"Content"} onClickMethod={handleClick(contentComparator)}/>
+                <FilterButton text={"Date"} onClickMethod={handleClick(dateComparator)}/>
             </div>
+
+            <NotesView notes={sortedEntries}/>
         </>
     )
 }
