@@ -1,8 +1,18 @@
 "use client"
-import Note from "@/models/Note/Note";
+import {createNewNote} from "@/models/Note/Note";
 import {motion} from "framer-motion"
+import {FormEvent, useState} from "react";
 
-const AddNotePage = (note: Note) => {
+const AddNotePage = () => {
+    let [title, setTitle] = useState("");
+    let [description, setDescription] = useState("");
+
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+        // Add logic to handle form submission here
+        let newNote = createNewNote(title, description);
+
+    }
     return (
         <>
             <form className={'m-4'}>
@@ -16,7 +26,7 @@ const AddNotePage = (note: Note) => {
                 </div>
 
                 <motion.button
-                    whileHover={{scale: 1.2, textDecoration: "underline"}}
+                    whileHover={{scale: 1.2}}
                     whileTap={{scale: 0.9}}
                     className={"p-4 bg-purple-500 mt-2 rounded"} role={"submit"}>Add Note
                 </motion.button>

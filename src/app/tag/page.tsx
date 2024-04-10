@@ -7,14 +7,26 @@ import TagView from "@/components/TagView/TagView";
 // TODO: Add Tag model and Tag view as well as a Tags view containing all tags
 // also refactor the input fields to separate components as they are pretty much the same thing
 const TagPage = () => {
-    let [tagName, setTagName] = useState('')
-    let [tagColor, setTagColor] = useState('')
-    let [tagSymbol, setTagSymbol] = useState('')
+    let [tagName, setTagName] = useState('new tag')
+    let [tagColor, setTagColor] = useState('pink')
+    let [tagSymbol, setTagSymbol] = useState('🏷️')
     let [tagList, setTagList] = useState(tags)
 
-    // TODO: function to add tag to list not working :( 🪽
     const handleClick = (tag: Tag) => {
-        return () => setTagList(prevTagList => [...prevTagList, tag])
+        if (tag.name === "new tag" || tag.name === "") {
+            return
+        }
+
+        return () => {
+            setTagList(prevTagList => [...prevTagList, tag])
+            resetTagInfos()
+        }
+    }
+
+    const resetTagInfos = () => {
+        setTagName("new tag")
+        setTagColor("pink")
+        setTagSymbol("🏷️")
     }
 
     return (
@@ -44,9 +56,13 @@ const TagPage = () => {
                     className={"bg-purple-500 p-4 mt-4 rounded"}>
                     <p>Add Tag</p>
                 </motion.button>
-                <p className={"text-2xl"}>All tags</p>
-                <div className={"flex items-center gap-4"}>
-                    {tags.map(tag => <TagView name={tag.name} color={tag.color} symbol={tag.symbol}/>)}
+                <p className={"text-2xl mt-4"}>All tags</p>
+                {/*TODO: Fix the scrollview, it's not scrolling at the moment,
+                 * by i am sure that this is simply do to the width of parent,
+                 * but i might be wrong who is to know*/}
+                <div className={"grid grid-cols-3 gap-4 max-w-2xl mx-auto"}>
+                    {tagList.map(((tag, index) => <TagView key={index} name={tag.name} color={tag.color}
+                                                           symbol={tag.symbol}/>))}
                 </div>
             </div>
 
